@@ -1,8 +1,8 @@
 name: 02-workflow-events
 'on':
-  push: null
-  pull_request: null
-  scehdule:
+  push: 
+  pull_request: 
+  schedule:
     - cron: '*/5 * * * *'
   workflow-dispatch:
 jobs:
