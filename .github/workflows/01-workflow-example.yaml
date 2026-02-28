@@ -1,5 +1,5 @@
 name: 1-building-block
-'on': push
+'on': workflow_dispatch
 jobs:
   echo-hello:
     runs-on: ubuntu-latest
