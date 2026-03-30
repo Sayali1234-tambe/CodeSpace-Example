@@ -8,7 +8,7 @@ jobs:
     runs-on: buntu-latest
   steps:
     -name: checkout Code
-      uses: Actions/checkout@v4
+      uses: actions/checkout@v4
     -name: Printing folder
       run: ls
 
