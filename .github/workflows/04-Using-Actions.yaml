@@ -5,12 +5,10 @@ on:
 
 jobs:
   build:
-    runs-on: buntu-latest
-  steps:
-    -name: checkout Code
-      uses: actions/checkout@v4
-    -name: Printing folder
-      run: ls
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-  #1. Installation of react
-  #2.Execute automated test
+      - name: Printing folder
+        run: ls
