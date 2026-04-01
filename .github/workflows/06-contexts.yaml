@@ -1,10 +1,10 @@
-name: 06 - Contexts
+name: 06 - "Contexts"
 on:
   push:
   workflow_dispatch:
 
 jobs:
-  name: echo-data
+  echo-data:
     runs-on: ubuntu-latest
     steps:
     - name: Display-Data
