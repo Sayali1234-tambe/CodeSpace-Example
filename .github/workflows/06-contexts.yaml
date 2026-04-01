@@ -1,5 +1,5 @@
 name: 06 - "Contexts"
-run-name: 06-Contexts | DEBUG ${{inputs.debug}}
+run-name: 06-Contexts | DEBUG ${{ inputs.debug }}
 
 on:
   push:
@@ -7,11 +7,19 @@ on:
     inputs:
       debug:
         type: boolean
-        defaults: false
+        default: false
+
+env:
+  MY_ENV_VARIABLE: "env-variable"
+  MY_OVERWRITTEN_VARIABLE: "over_env_variable"
 
 jobs:
   echo-data:
     runs-on: ubuntu-latest
+
+    env:
+      MY_JOB_VARIABLE: "job-env-variable"
+      MY_OVERWRITTEN_VARIABLE: "over_env_job_variable"
 
     steps:
       - name: Display Data
@@ -27,3 +35,15 @@ jobs:
       - name: Retrieve Variable
         run: |
           echo "Variable value - ${{ vars.MY_VARIABLE }}"
+
+      - name: Print
+        env:
+          MY_OVERWRITTEN_VARIABLE: "over_env_step_variable"
+        run: |
+          echo "Env variable value - $MY_ENV_VARIABLE"
+          echo "Job variable value - $MY_JOB_VARIABLE"
+          echo "Overwritten variable value - $MY_OVERWRITTEN_VARIABLE"
+      - name: Print
+        run: |
+          echo "Env variable value - $MY_ENV_VARIABLE"
+          echo "Overwritten variable value - $MY_OVERWRITTEN_VARIABLE"
