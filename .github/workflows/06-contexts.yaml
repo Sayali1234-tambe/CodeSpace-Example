@@ -50,6 +50,8 @@ jobs:
     
     echo-data:
       runs-on: ubuntu-latest
+
+      steps: Print Variables
         run: |
           echo "Env variable value - $MY_ENV_VARIABLE"
           echo "Overwritten variable value - $MY_OVERWRITTEN_VARIABLE"
