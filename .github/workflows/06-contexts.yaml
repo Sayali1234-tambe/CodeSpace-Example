@@ -36,22 +36,24 @@ jobs:
         run: |
           echo "Variable value - ${{ vars.MY_VARIABLE }}"
 
-      - name: Print
+      - name: Print (Step Override)
         env:
           MY_OVERWRITTEN_VARIABLE: "over_env_step_variable"
         run: |
-          echo "Env variable value - ${{env.MY_ENV_VARIABLE}}"
-          echo "Job variable value - ${{env.MY_JOB_VARIABLE}}"
-          echo "Overwritten variable value - ${{env.MY_OVERWRITTEN_VARIABLE}}"
-      - name: Print
-        run: |
-          echo "Env variable value - ${{env.MY_ENV_VARIABLE}}"
-          echo "Overwritten variable value - ${{env.MY_OVERWRITTEN_VARIABLE}}"
-    
-    echo-data:
-      runs-on: ubuntu-latest
+          echo "Env variable value - ${{ env.MY_ENV_VARIABLE }}"
+          echo "Job variable value - ${{ env.MY_JOB_VARIABLE }}"
+          echo "Overwritten variable value - ${{ env.MY_OVERWRITTEN_VARIABLE }}"
 
-      steps: Print Variables
+      - name: Print (Job Scope)
+        run: |
+          echo "Env variable value - ${{ env.MY_ENV_VARIABLE }}"
+          echo "Overwritten variable value - ${{ env.MY_OVERWRITTEN_VARIABLE }}"
+
+  echo-data-2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Variables
         run: |
           echo "Env variable value - $MY_ENV_VARIABLE"
           echo "Overwritten variable value - $MY_OVERWRITTEN_VARIABLE"
