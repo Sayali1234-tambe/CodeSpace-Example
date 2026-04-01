@@ -2,11 +2,12 @@ name: 05 - 1 - Event Filters and Activity Types
 
 on: 
   pull_request:
-    Types: [opened , synchronize ]
+    Types: 
+      - opened 
+      - synchronize
     branches:
       - main
     
 jobs:
   echo: 
-    - name: echo-first
-        run: 'echo"Running whenever a PR is opened or synchronized AND base branch is main"'
+    - run: 'echo"Running whenever a PR is opened or synchronized AND base branch is main"'
