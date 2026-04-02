@@ -38,13 +38,13 @@ jobs:
     steps: 
       - name: Print variable
         run: |
-          echo "${{ var.ENV_VARIABLE }}"
-          echo "${{ var.REPO_VAR }}"
+          echo "${{ vars.ENV_VARIABLE }}"
+          echo "${{ vars.REPO_VAR }}"
   echo-staging:
     runs-on: ubuntu-latest
     environment: staging
     steps: 
       - name: Print variable
         run: |
-          echo "${{ var.ENV_VARIABLE }}"
-          echo "${{ var.REPO_VAR }}"
+          echo "${{ vars.ENV_VARIABLE }}"
+          echo "${{ vars.REPO_VAR }}"
