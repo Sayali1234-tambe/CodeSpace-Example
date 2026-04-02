@@ -19,7 +19,7 @@ jobs:
           echo "Commit SHA: ${{github.SHA}}"
           echo "Runner OS: $RUNNER_OS"
       - name: Print when triggered from main
-        if: ${{inputs.debug}} && ${{github.ref}} == 'refs/heads/main'
+        if: ${{inputs.debug && github.ref == 'refs/heads/main' }}
         run: echo "Print when triggered from main"
       - name: Greetings
         run: echo "Hello World!!"
