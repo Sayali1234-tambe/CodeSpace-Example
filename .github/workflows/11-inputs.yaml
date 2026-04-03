@@ -8,7 +8,7 @@ on:
         description: "Skip deployment and only print build output"
     
       target:
-        type: prod
+        type: environment
         description: "Which environment the workflow will target"
 
       tag:
