@@ -1,6 +1,5 @@
 name: 09 - Using Functions
 on: 
-  pull_request:
   workflow_dispatch:
 
 jobs:
