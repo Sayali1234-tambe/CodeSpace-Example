@@ -7,7 +7,7 @@ on:
         options:
           - success
           - failure
-        default: success
+        default: failure
 
 jobs:
   build: 
