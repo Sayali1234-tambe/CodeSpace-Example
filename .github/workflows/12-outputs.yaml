@@ -2,11 +2,12 @@ name: 12 - Working with Outputs
 on:  
   workflow_dispatch:
     inputs:
-      type: choice
-      options:
-        - success
-        - failure
-      default: success
+      build-status:
+        type: choice
+        options:
+          - success
+          - failure
+        default: success
 
 jobs:
   build: 
