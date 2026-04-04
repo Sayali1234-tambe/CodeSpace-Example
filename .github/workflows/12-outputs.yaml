@@ -15,8 +15,8 @@ jobs:
       build-status: ${{ steps.build.Outputs.status }}
     runs-on: ubuntu-latest
     steps:
-      - name: Print GITHUB_OUTPUT path
-      - id: build
+      - name: Build
+        id: build
         run: echo "status=success" >> $GITHUB_OUTPUT
   
   deploy:
