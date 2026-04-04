@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Build
         id: build
-        run: echo "status=${{ github.event.inputs.build-status }}" >> "$GITHUB_OUTPUT"
+        run: echo "status=${{ inputs.build-status }}" >> "$GITHUB_OUTPUT"
   
   deploy:
     runs-on: ubuntu-latest
