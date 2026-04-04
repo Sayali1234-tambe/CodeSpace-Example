@@ -7,13 +7,13 @@ on:
         options:
           - success
           - failure
-        default: failure
+        default: success
 
 jobs:
   build: 
+    runs-on: ubuntu-latest
     outputs:
       build-status: ${{ steps.build.outputs.status }}
-    runs-on: ubuntu-latest
     steps:
       - name: Build
         id: build
