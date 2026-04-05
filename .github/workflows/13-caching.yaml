@@ -37,11 +37,8 @@ jobs:
         id: cache
         uses: actions/cache@v4
         with:
-          path: node_modules
+          path: 13-caching/react-app/node_modules
           key: deps-${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles('13-caching/react-app/package-lock.json') }}
-
-      - name: Debug cache
-        run: echo "Cache hit? ${{ steps.cache.outputs.cache-hit }}"
 
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
