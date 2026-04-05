@@ -11,6 +11,10 @@ on:
           - 24.x
         default: 24.x
 
+env:
+  build-artifact-key: build-${{ github.sha }}
+  test-coverage-key: test-coverage-${{ github.sha }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,13 +40,18 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Test run 
-        run: npm run test
-      - name: Build Code 
-        run: npm run build
-      - name: Upload build hashFiles
+        run: npm run test -- --coverage
+      - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: app
+          name: ${{ env.test-coverage-key }}
+          path: 14-artifacts/react-app/coverage
+      - name: Build Code 
+        run: npm run build
+      - name: Upload build Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.build-artifact-key }}
           path: 14-artifacts/react-app/build
   deploy:
     runs-on: ubuntu-latest
@@ -51,6 +60,6 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: app
+          name: ${{ env.build-artifact-key }}
           path: 14-artifacts/react-app/build
         
