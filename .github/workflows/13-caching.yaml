@@ -14,10 +14,10 @@ on:
           - 21.x
           - 24.x
         default: 24.x
-    outputs:
-      deps-cache-key : steps.cache-key.outputs.CACHE_KEY
-
 jobs:
+  outputs:
+      deps-cache-key : steps.cache-key.outputs.CACHE_KEY
+      
   install-deps:
     runs-on: ubuntu-latest
     defaults:
