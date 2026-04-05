@@ -7,6 +7,13 @@ on:
         type: boolean
         default: true
         description: Whether to execute cache step
+      node-version:
+        type: choice
+        options:
+          - 20.x
+          - 21.x
+          - 24.x
+        default: 24.x
 
 jobs:
   build:
@@ -23,7 +30,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24.x
+          node-version: ${{ inputs.node-version }}
 
       - name: Install dependencies
         run: npm install  
