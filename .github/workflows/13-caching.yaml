@@ -15,11 +15,10 @@ on:
           - 24.x
         default: 24.x
 jobs:
-  outputs:
-      deps-cache-key : steps.cache-key.outputs.CACHE_KEY
-      
   install-deps:
     runs-on: ubuntu-latest
+    outputs:
+      deps-cache-key : steps.cache-key.outputs.CACHE_KEY
     defaults:
       run:
         working-directory: 13-caching/react-app
