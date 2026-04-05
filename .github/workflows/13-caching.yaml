@@ -1,5 +1,6 @@
 name: 13 - Using Caching
-on:  
+
+on:
   workflow_dispatch:
     inputs:
       use-cache:
@@ -10,22 +11,31 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     defaults:
       run:
-        working-directory: 13-caching/react-app/package-lock.json
+        working-directory: 13-caching/react-app
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      - name: setup node
-        uses: actions/setup-node@v3
-        with: 
-          node-version: 20.x
-      - name: Install dependecies
-        run: npm ci
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Debug files
+        run: ls -la
+
+      - name: Install dependencies
+        run: npm install   # safer unless lock file exists
+
       - name: Test 
         run: npm run test
-      - name: Building
+
+      - name: Build
         run: npm run build
+
       - name: Deploying to non-prod 
         run: echo "Deploying to nonprod"
-        
