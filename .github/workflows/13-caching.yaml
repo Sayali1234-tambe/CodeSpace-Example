@@ -23,13 +23,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Debug files
-        run: ls -la
+          node-version: 24.x
 
       - name: Install dependencies
-        run: npm install   # safer unless lock file exists
+        run: npm install  
 
       - name: Test 
         run: npm run test
