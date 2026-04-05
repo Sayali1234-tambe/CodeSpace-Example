@@ -1,0 +1,55 @@
+name: 14-artifacts
+
+on:  
+  workflow_dispatch:
+    inputs:
+      node-version:
+        type: choice
+        options:
+          - 20.x
+          - 21.x
+          - 24.x
+        default: 24.x
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 14-artifacts/react-app
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Cache node_modules
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: 14-artifacts/react-app/node_modules
+          key: deps-${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles('14-artifacts/react-app/package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Test run 
+        run: npm run test
+      - name: Build Code 
+        run: npm run build
+      - name: Upload build hashFiles
+        uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: 14-artifacts/react-app/build
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app
+          path: 14-artifacts/react-app/build
+        
