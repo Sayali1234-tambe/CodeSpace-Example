@@ -6,8 +6,7 @@ jobs:
   backwards-compatibility:
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }}-${{ matrix.node }}
-    strategy:
-      fail-fast: false   
+    strategy:  
       matrix:
         node:
           - 18.x
