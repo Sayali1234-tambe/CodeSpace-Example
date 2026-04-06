@@ -6,7 +6,8 @@ jobs:
   backwards-compatibility:
     runs-on: ubuntu-latest
     name: ${{ matrix.os }}-${{ matrix.node }}
-    strategy:   
+    strategy:
+      fail-fast: false   
       matrix:
         node:
           - 18.x
@@ -15,10 +16,23 @@ jobs:
         os:   
           - ubuntu-latest
           - windows-latest
+        include: 
+          - os: ubuntu-latest
+            node-version: 16.x
+          - os: ubuntu-latest
+            node-version: 21.x
+            tag: experimental
     steps:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+      - name: fail if experimental
+        if: matrix.tag = 'experimental'
+        run: exit 1
       - name: Perform some tests
-        run: echo "Running tests on OS ${{ matrix.os }} and NodeJS ${{ matrix.node }}"
+        run: |
+          echo "Running tests on OS ${{ matrix.os }} and NodeJS ${{ matrix.node }}"
+          sleep 10
+      - name: Upload test results
+          echo "Uploading test results"
