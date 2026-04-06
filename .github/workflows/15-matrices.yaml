@@ -49,7 +49,6 @@ jobs:
         shape: [circle, square]
         size: [small, large]
         include:
-          - opacity: 50
           - color: red
             opacity: 75
           - color : red
@@ -57,6 +56,7 @@ jobs:
             shape: circle
           - color: red
             shape: triangle
+          - opacity: 50
     steps:
       - name: dummy steps
         run: echo "${{ matrix.color }}-${{ matrix.shape }}-${{ matrix.size }}"
