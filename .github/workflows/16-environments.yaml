@@ -21,7 +21,7 @@ jobs:
   echo-prod-env:
     runs-on: ubuntu-latest
     needs: E2E-test
-    environment: prod-env
+    environment: prod_env
     steps:
       - name: Echo vars
         run: |
