@@ -15,10 +15,10 @@ jobs:
         os:   
           - ubuntu-latest
           - windows-latest
-  steps:
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node }}
-    - name: Perform some tests
-      run: echo "Running tests on OS ${{ matrix.os }} and NodeJS ${{ matrix.node }}"
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Perform some tests
+        run: echo "Running tests on OS ${{ matrix.os }} and NodeJS ${{ matrix.node }}"
