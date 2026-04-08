@@ -12,7 +12,7 @@ on:
           - prod
 
 env:
-  working-dir: 17-custom-actions/react-app
+  working-directory: 17-custom-actions/react-app
 
 jobs:
   build:
@@ -28,12 +28,12 @@ jobs:
         uses: ./.github/actions/composite-cache-deps
         with: 
           node-version: 24.x
-          working-dir: ${{ env.working-dir }}
+          working-dir: ${{ env.working-directory }}
 
       - name: Run test
         run: npm run test
-        working-dir: ${{ env.working-dir }}
+        working-dir: ${{ env.working-directory }}
       
       - name: Build
         run: npm run build
-        working-dir: ${{ env.working-dir }}
+        working-dir: ${{ env.working-directory }}
