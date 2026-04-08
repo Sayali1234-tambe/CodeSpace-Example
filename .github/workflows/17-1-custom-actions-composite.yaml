@@ -12,7 +12,7 @@ on:
           - prod
 
 env:
-  working-directory: 17-custom-actions/react-app
+  working-dir: 17-custom-actions/react-app
 
 jobs:
   build:
