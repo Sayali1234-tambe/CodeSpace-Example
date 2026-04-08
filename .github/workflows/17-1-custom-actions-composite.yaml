@@ -32,8 +32,6 @@ jobs:
 
       - name: Run test
         run: npm run test
-        working-dir: ${{ env.working-directory }}
-      
+        
       - name: Build
         run: npm run build
-        working-dir: ${{ env.working-directory }}
