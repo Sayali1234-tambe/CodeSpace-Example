@@ -8,6 +8,6 @@ jobs:
   dependency-update:
     runs-on: ubuntu-latest
   
-  steps:
-    - name: Check for dependency updates
-      uses: ./.github/actions/js-dependency-update
+    steps:
+      - name: Check for dependency updates
+        uses: ./.github/actions/js-dependency-update
