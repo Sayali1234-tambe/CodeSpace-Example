@@ -4,7 +4,7 @@ description: This action allows to cache both Node and NPM dependencies based on
 inputs:
   node-version:
     description: NodeJS version to use
-    default: 20.x
+    default: 24.x
     required: true
   working-dir:
     description: The working directory of the application
@@ -19,12 +19,12 @@ runs:
   using: composite
   steps:
     - name: Setup NodeJS version ${{ inputs.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
     - name: Cache dependencies
       id: cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ${{ inputs.working-dir }}/node_modules
         key: node-modules-${{ inputs.target-env }}-${{ hashFiles(format('{0}/{1}', inputs.working-dir, 'package-lock.json')) }}
