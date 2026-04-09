@@ -3,32 +3,33 @@ description: This action allows to cache both Node and NPM dependencies based on
 
 inputs:
   node-version:
-    - description: nodeJS version
-      default: 24.x
-      required: false
+    description: NodeJS version to use
+    default: 20.x
+    required: true
+  working-dir:
+    description: The working directory of the application
+    default: .
+    required: false
+  target-env:
+    description: '"dev" or "prod". Controls whether dev dependencies are installed'
+    default: dev
+    required: false
 
-  working-directory: 
-    - description: working directory of system
-      default: .
-      required: false
-runs: 
+runs:
   using: composite
   steps:
-    - name: checkout
-      uses: actions/checkout@v4
-
-    - name: setup node-JS version ${{ inputs.node-version }}
+    - name: Setup NodeJS version ${{ inputs.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node-version }}
-    - name: cache dependency
+    - name: Cache dependencies
       id: cache
       uses: actions/cache@v3
       with:
-        path: ${{ inputs.working-directory }}/node_modules
-        key: deps-${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles('${{ inputs.working-directory}}/package-lock.json') }}
-    - name: install dependencies
+        path: ${{ inputs.working-dir }}/node_modules
+        key: node-modules-${{ inputs.target-env }}-${{ hashFiles(format('{0}/{1}', inputs.working-dir, 'package-lock.json')) }}
+    - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
-      run: npm ci
+      run: ${{ inputs.target-env == 'dev' && 'npm ci' || 'npm ci --omit=dev' }}
       shell: bash
-      working-dir: ${{ inputs.working-directory }}
+      working-directory: ${{ inputs.working-dir }}
