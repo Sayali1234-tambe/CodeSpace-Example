@@ -22,7 +22,7 @@ inputs:
   
   debug: 
     description: Whether the output debug messages to the console
-    required: false
+    required: 'false'
 
 runs:
   using: node24
