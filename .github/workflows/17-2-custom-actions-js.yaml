@@ -1,16 +1,34 @@
-Run ./.github/actions/js-dependency-update
-/home/runner/work/CodeSpace-Example/CodeSpace-Example/.github/actions/js-dependency-update/node_modules/@actions/core/lib/core.js:106
-        throw new Error(`Input required and not supplied: ${name}`);
-              ^
+name: 17 - 2 - Custom Actions - JS
+run-name: 17 - 2 - Custom Actions - JS | BB-${{ inputs.base-branch }} - TB-${{ inputs.target-branch }} - WD-${{ inputs.working-dir }}
 
-Error: Input required and not supplied: gh-token
-    at Object.getInput (/home/runner/work/CodeSpace-Example/CodeSpace-Example/.github/actions/js-dependency-update/node_modules/@actions/core/lib/core.js:106:15)
-    at run (/home/runner/work/CodeSpace-Example/CodeSpace-Example/.github/actions/js-dependency-update/index.js:13:24)
-    at Object.<anonymous> (/home/runner/work/CodeSpace-Example/CodeSpace-Example/.github/actions/js-dependency-update/index.js:98:1)
-    at Module._compile (node:internal/modules/cjs/loader:1812:14)
-    at Object..js (node:internal/modules/cjs/loader:1943:10)
-    at Module.load (node:internal/modules/cjs/loader:1533:32)
-    at Module._load (node:internal/modules/cjs/loader:1335:12)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
-    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
-    at node:internal/main/run_main_module:33:47
+on: 
+  workflow_dispatch:
+    inputs: 
+      base-branch:
+        type: string
+        default: main
+      target-branch:
+        type: string
+        default: update-dependencies
+      working-dir:
+        type: string
+        default: 17-custom-actions/react-app
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs: 
+  dependency-update:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for dependency updates
+        uses: ./.github/actions/js-dependency-update
+        with:
+          working-directory: .
+          gh-token: ${{ secrets.GITHUB_TOKEN }}
+          base-branch: ${{ inputs.base-branch }}
+          target-branch: ${{ inputs.target-branch }}
+          
