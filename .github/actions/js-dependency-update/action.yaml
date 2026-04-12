@@ -24,6 +24,10 @@ inputs:
     description: Whether the output debug messages to the console
     default: 'false'
 
+outputs:
+  updates-available:
+    description: Whether there were any updates to the dependencies or not.
+
 runs:
   using: node24
   main: index.js

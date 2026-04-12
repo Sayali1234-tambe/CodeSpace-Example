@@ -49,8 +49,10 @@ async function run() {
     await exec.exec(`npm install`, [], commonExecOpts);
     await exec.exec(`npm update`, [], commonExecOpts);
 
+    let updatesAvailable = false;
     // ✅ Check for changes
     const gitStatus = await exec.getExecOutput(
+      updatesAvailable = true,
       'git status -s package*.json',
       [],
       commonExecOpts
@@ -118,6 +120,8 @@ async function run() {
   } catch (error) {
     core.setFailed(error.message);
   }
+  logger.debug("Setting output 'updates-available' to true since changes were detected.");
+  core.setOutput('updates-available', 'true');
 }
 
 run();
