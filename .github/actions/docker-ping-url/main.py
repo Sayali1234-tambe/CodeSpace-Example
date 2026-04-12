@@ -1,6 +1,7 @@
 import requests
 import time
 import sys
+import os
 
 
 def ping_url(url, delay, max_trials):
