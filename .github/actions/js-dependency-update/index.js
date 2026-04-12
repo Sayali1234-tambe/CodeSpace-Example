@@ -2,6 +2,10 @@ const core = require('@actions/core');
 const exec = require('@actions/exec');
 const github = require('@actions/github');
 
+const setupGit = async () => {
+  await exec.exec(`git config user.name "github-actions[bot]"`);
+  await exec.exec(`git config user.email "github-actions[bot]@users.noreply.github.com"`);
+};
 const validateBranchName = (branchName) =>
   /^[a-zA-Z0-9_\-\.\/]+$/.test(branchName);
 
@@ -11,7 +15,7 @@ const validateDirectoryName = (dirName) =>
 async function run() {
   try {
     const baseBranch = core.getInput('base-branch', { required: true });
-    const targetBranch = core.getInput('target-branch', { required: true });
+    const headBranch = core.getInput('head-branch', { required: true }) ;
     const ghToken = core.getInput('gh-token', { required: true });
     const workingDir = core.getInput('working-directory', { required: true });
     const debug = core.getBooleanInput('debug');
@@ -25,8 +29,8 @@ async function run() {
       throw new Error('Invalid base branch name');
     }
 
-    if (!validateBranchName(targetBranch)) {
-      throw new Error('Invalid target branch name');
+    if (!validateBranchName(headBranch)) {
+      throw new Error('Invalid head branch name');
     }
 
     if (!validateDirectoryName(workingDir)) {
@@ -34,7 +38,7 @@ async function run() {
     }
 
     core.info(`[js-dependency-update] base branch: ${baseBranch}`);
-    core.info(`[js-dependency-update] target branch: ${targetBranch}`);
+    core.info(`[js-dependency-update] head branch: ${headBranch}`);
     core.info(`[js-dependency-update] working dir: ${workingDir}`);
 
     // ✅ Ensure correct base branch
@@ -64,8 +68,7 @@ async function run() {
     core.info('[js-dependency-update] Updates detected.');
 
     // ✅ Configure git
-    await exec.exec(`git config user.name "gh-automation"`);
-    await exec.exec(`git config user.email "gh-automation@email.com"`);
+    await setupGit();
 
     // ✅ Setup authenticated remote
     const { owner, repo } = github.context.repo;
@@ -74,7 +77,7 @@ async function run() {
     );
 
     // ✅ Create/reset branch safely
-    await exec.exec(`git checkout -B ${targetBranch}`, [], commonExecOpts);
+    await exec.exec(`git checkout -B ${headBranch}`, [], commonExecOpts);
 
     // ✅ Commit changes
     await exec.exec(`git add package*.json`, [], commonExecOpts);
@@ -86,7 +89,7 @@ async function run() {
 
     // ✅ Push branch
     await exec.exec(
-      `git push origin ${targetBranch} --force`,
+      `git push origin ${headBranch} --force`,
       [],
       commonExecOpts
     );
@@ -101,7 +104,7 @@ async function run() {
         title: 'Update NPM dependencies',
         body: 'This PR updates NPM dependencies automatically.',
         base: baseBranch,
-        head: targetBranch,
+        head: headBranch,
       });
 
       core.info('[js-dependency-update] PR created successfully.');
