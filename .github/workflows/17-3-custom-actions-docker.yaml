@@ -4,8 +4,18 @@ on:
   workflow_dispatch:
     inputs: 
       url:
-        type: string
-        default: 'https://www.google.com'
+        type: choice
+        options:
+          - 'https://www.google.com'
+          - 'https://ggg'
+      max-trials:
+        description: "Maximum trials until action fails"
+        type: number
+        default: 10
+      delay-seconds:
+        description: "Delay in seconds between each trial"
+        type: number
+        default: 5
 permissions:
   contents: write
   pull-requests: write
