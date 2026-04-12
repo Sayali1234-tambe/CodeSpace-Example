@@ -33,5 +33,4 @@ jobs:
       - name: Build
         run: npm run build
       - name: Check if dependencies were installed
-        run: echo |
-          "Dependencies were ${{ steps.setup-deps.outputs.install-deps }} installed."
+        run: echo "Dependencies were ${{ steps.setup-deps.outputs.install-deps == 'true' && '' || 'not' }} installed."
