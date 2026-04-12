@@ -34,4 +34,5 @@ jobs:
           max-trials: ${{ inputs.max-trials }}
           delay-seconds: ${{ inputs.delay-seconds }}
       - name: Print URL Reachability
-        run: echo "URL Reachable: ${{ steps.ping-url.outputs.url-reachable }}"
+        run: |
+          echo "URL Reachable: ${{ steps.ping-url.outputs.url-reachable }}"
