@@ -4,7 +4,7 @@ run-name: 17 - 2 - Custom Actions - JS | BB-${{ inputs.base-branch }} - TB-${{ i
 on: 
   workflow_dispatch:
     inputs: 
-      base-branch:
+      head-branch:
         type: string
         default: main
       target-branch:
