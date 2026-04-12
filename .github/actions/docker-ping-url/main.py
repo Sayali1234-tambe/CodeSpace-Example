@@ -3,6 +3,9 @@ import time
 import sys
 import os
 
+def set_output(filepath, key, value):
+   with open(filepath, 'a') as file:
+      print(f"{key}={value}", file=file)
 
 def ping_url(url, delay, max_trials):
    trials = 0
@@ -24,8 +27,8 @@ def run():
    website_url = os.getenv("INPUT_URL")
    delay = int(os.getenv("INPUT_DELAY-SECONDS"))
    max_trials = int(os.getenv("INPUT_MAX-TRIALS"))
-
    website_reachable = ping_url(website_url, delay, max_trials)
+   set_output(os.getenv("GITHUB_OUTPUT"), "url-reachable", website_reachable)
    if not website_reachable:
       raise Exception(f"Failed to ping {website_url} after {max_trials} attempts.")
    print(f"Successfully pinged {website_url}.")
