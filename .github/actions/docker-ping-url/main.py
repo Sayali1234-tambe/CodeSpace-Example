@@ -26,6 +26,9 @@ def run():
    max_trials = int(os.getenv("INPUT_MAX-TRIALS"))
 
    website_reachable = ping_url(website_url, delay, max_trials)
+   if not website_reachable:
+      raise Exception(f"Failed to ping {website_url} after {max_trials} attempts.")
+   print(f"Successfully pinged {website_url}.")
 
 
 if __name__ == "__main__":
