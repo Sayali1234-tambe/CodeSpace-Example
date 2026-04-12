@@ -17,6 +17,5 @@ inputs:
   
 
 runs:
-  runs:
   using: docker
   image: Dockerfile
