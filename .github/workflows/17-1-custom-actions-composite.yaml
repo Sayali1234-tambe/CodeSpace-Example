@@ -22,6 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node and NPM Dependencies
+        id: setup-deps
         uses: ./.github/actions/composite-cache-deps
         with:
           node-version: 24.x
@@ -31,3 +32,6 @@ jobs:
         run: npm run test
       - name: Build
         run: npm run build
+      - name: Check if dependencies were installed
+        run: echo |
+          "Dependencies were ${{ steps.setup-deps.outputs.install-deps }} installed."
