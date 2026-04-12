@@ -1,5 +1,6 @@
 name: 17 - 3 - Custom Actions - docker
 run-name: 17 - 3 - Custom Actions - docker 
+on:
   workflow_dispatch:
     inputs: 
       url:
