@@ -30,7 +30,7 @@ jobs:
         with:
           working-directory: ${{ inputs.working-dir }}
           gh-token: ${{ secrets.GITHUB_TOKEN }}
-          base-branch: ${{ inputs.head-branch }}
+          head-branch: ${{ inputs.head-branch }}
           target-branch: ${{ inputs.target-branch }}
       - name: Check if updates were available
         run: |
