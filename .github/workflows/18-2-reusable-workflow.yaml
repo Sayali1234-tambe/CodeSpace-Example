@@ -7,7 +7,7 @@ jobs:
   deploy:
     uses: ./.github/workflows/18-1-reusable-workflows.yaml
     with:
-      target-directory: "src"
+      target-directory: src   # removed quotes (optional but safer)
 
   print-outputs:
     runs-on: ubuntu-latest
@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Print build status
-        run: echo "Build Status: ${{ needs.deploy.outputs.build-status }}"
+        run: echo "Build Status: ${{ needs.deploy.outputs['build-status'] }}"
 
       - name: Print URL
-        run: echo "Deployed URL: ${{ needs.deploy.outputs.url }}"
+        run: echo "Deployed URL: ${{ needs.deploy.outputs['url'] }}"
