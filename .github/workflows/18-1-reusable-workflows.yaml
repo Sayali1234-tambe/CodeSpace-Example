@@ -17,20 +17,21 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     outputs:
       build-status: ${{ steps.build.outputs.build-status }}
       url: ${{ steps.deploy.outputs.url }}
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Build
         id: build
         run: |
           echo "Building using directory ${{ inputs.target-directory }}"
-          echo "build-status=success" >> $GITHUB_OUTPUT
+          echo "build-status=success" >> "$GITHUB_OUTPUT"
 
       - name: Deploy
         id: deploy
         run: |
           echo "Deploying build artifacts"
-          echo "url=https://www.google.com" >> $GITHUB_OUTPUT
+          echo "url=https://www.google.com" >> "$GITHUB_OUTPUT"
