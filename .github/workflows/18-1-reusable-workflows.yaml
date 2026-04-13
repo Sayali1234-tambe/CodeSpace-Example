@@ -7,14 +7,9 @@ on:
         type: string
         required: true
 
-outputs:
-  build-status:
-    description: "The status of the build process"
-    value: ${{ steps.deploy.outputs.build-status }}
-  
-  url:
-    description: "The URL of the deployed application"
-    value: ${{ steps.deploy.outputs.url }}
+    outputs:
+      build-status: ${{ steps.deploy.outputs.build-status }}
+      url: ${{ steps.deploy.outputs.url }}
 
 jobs:
   deploy:
