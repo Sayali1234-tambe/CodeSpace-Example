@@ -9,11 +9,12 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
       - name: Check PR title
-        title=${{ github.event.pull_request.title }}
-        if [[ $title =~ ^feat ]]:
-          echo "PR is a feature"
-          exit 0
-        else: 
-          echo "PR is not a feature"
-          exit 1
-        fi
+        run: |
+          title=${{ github.event.pull_request.title }}
+          if [[ $title =~ ^feat ]]:
+            echo "PR is a feature"
+            exit 0
+          else: 
+            echo "PR is not a feature"
+            exit 1
+          fi
